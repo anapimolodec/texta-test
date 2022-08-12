@@ -160,7 +160,7 @@ const Form = () => {
             <div className="field">
               <label for="email" className={usedEmail ? "redtext" : ""}> Email Address </label>
               <input
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.toLowerCase())}
                 required
                 type="email"
                 name="email"
