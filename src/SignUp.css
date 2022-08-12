@@ -11,7 +11,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: 800px;
+	width: 900px;
 }
 .form-container {
 	width: 100%;
@@ -27,6 +27,7 @@ ol {
 	counter-reset: list-items;
 	margin: 0px;
 	flex: 0 1 auto;
+	margin-bottom: 40px;
 	
 
 }
@@ -75,7 +76,7 @@ button {
 	background-color: transparent;
 	position: absolute;
 	right: calc(160px + 5%);
-	bottom: 0px;
+	bottom: -30px;
 }
 button.next {
 	background-color: var(--blue);
@@ -83,7 +84,7 @@ button.next {
 	color:  white;
 	position: absolute;
 	right: 5%;
-	bottom: 0;
+	bottom: -30px;
 	min-width: 150px;
 }
 
@@ -92,9 +93,29 @@ fieldset {
     display: flex;
     flex-wrap: wrap;
     padding: 0;
+    position: relative;
+    /*border-top:  1px solid var(--light-grey);
+    border-bottom:  1px solid var(--light-grey);*/
 
     
 
+}
+fieldset:before {
+	position: absolute;
+	content: "";
+	width: 95%;
+	height: 0.5px;
+	background-color: var(--grey);
+	top:  -110px;
+ }
+
+fieldset:after{
+	position: absolute;
+	content: "";
+	width: 95%;
+	height: 0.5px;
+	background-color: var(--grey);
+	bottom: -30px;
 }
 
 fieldset legend {
@@ -104,13 +125,13 @@ fieldset legend {
     font-size: 1.5rem;
     font-weight: bold;
     position: relative;
-    padding-top: 50px;
-    margin-bottom: 40px;
+    padding-top: 30px;
+    margin-bottom: 30px;
 }
 
 .pagination {
 	position: absolute;
-	top:  10px;
+	top:  -10px;
 	font-size: 1rem;
     font-weight: normal;
     color:  var(--grey);
