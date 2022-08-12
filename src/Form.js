@@ -100,7 +100,7 @@ const Form = () => {
   }, [email]);
   useEffect(() => {
   
-    let size = password.length();
+    let size = password.length;
     if (size > 6) {
       setShort(false);
     }
