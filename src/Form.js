@@ -98,17 +98,21 @@ const Form = () => {
 
     
   }, [email]);
-  useEffect(() => {
   
-    let size = password.length;
+  const passwordCheck = (e) => {
+    let size = e.length;
     if (size > 6) {
-      setShort(false);
+        setShort(false);
     }
+    setPassword(e);
+  }
+  
+  
      
-    setShort(true);
+  
 
     
-  }, [password]);
+  
   console.log("USEDEMAIL", usedEmail);
   return (
     <div className="form-wrapper">
@@ -136,7 +140,7 @@ const Form = () => {
             <div className="field">
               <label for="password"> Password </label>
               <input
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => passwordCheck(e.target.value)}
                 required
                 type="password"
                 name="password"
