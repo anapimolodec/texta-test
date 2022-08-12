@@ -92,7 +92,7 @@ const Form = () => {
 
     
   }, [email]);
-  console.log("USEDEMAIL", usedEmail);
+  console.log("USEDEMAIL", "change", usedEmail);
   return (
     <div className="form-wrapper">
       <ol>
