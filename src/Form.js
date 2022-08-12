@@ -19,6 +19,7 @@ const Form = () => {
   const [option2, setOption2] = useState(false);
   const [error, setError] = useState("");
   const [usedEmail, setUsedEmail] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const nextStep = (e) => {
     e.preventDefault();
@@ -31,7 +32,18 @@ const Form = () => {
 
   };
    
-
+  const cleanFields = () => {
+    setFirstName("");
+    setEmail("");
+    setPassword("");
+    setDob("");
+    setAddress("");
+    setMessage("");
+    setChoice("");
+    setGender("");
+    setOption1(false);
+    setOption2(false);
+  }
 
 
   const submitForm = (e) => {
@@ -39,30 +51,31 @@ const Form = () => {
     function onRegister() {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          // set(ref(db, "users/" + userCredential.user.uid), {
-          //   firstName: firstName,
-          //   email: email,
-          //   date: dob,
-          //   message: message,
-          //   address: address,
-          //   choice: choice,
-          //   gender: gender,
-          //   option1: option1,
-          //   option2: option2,
-          // })
-          // set(ref(db, "emails/"), {
+          set(ref(db, "users/" + userCredential.user.uid), {
+            firstName: firstName,
+            email: email,
+            date: dob,
+            message: message,
+            address: address,
+            choice: choice,
+            gender: gender,
+            option1: option1,
+            option2: option2,
+          })
+          set(ref(db, "emails/"), {
             
-          //   email: email,
+            email: email,
             
-          // });
-          console.log(firstName, email, dob, message, address, choice,  gender, option1, option2);
+          });
+          cleanFields();
         })
         .catch(error => console.log(error.message));
       
     }
     onRegister();
   };
-  console.log(gender,option1,option2)
+
+
   
   useEffect(() => {
     const checkEmail = () => {
@@ -71,13 +84,15 @@ const Form = () => {
           const data = snapshot.val();
           let exists = Object.values(data).includes(email);
           setUsedEmail(exists);
-          console.log("RUNNING!", exists)
         });
+      
     
     }
     checkEmail();
-  }, [email]);
 
+    
+  }, [email]);
+  console.log("USEDEMAIL", usedEmail);
   return (
     <div className="form-wrapper">
       <ol>
@@ -121,14 +136,16 @@ const Form = () => {
                 ></input>
             </div>
             <div className="field">
-              <label for="email"> Email Address </label>
+              <label for="email" className={usedEmail ? "redtext" : ""}> Email Address </label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 type="email"
                 name="email"
                 value={email}
+                className={usedEmail ? "redborder" : ""}
               ></input>
+              {usedEmail ? <p className="error-message redtext"> This email is already used </p> : ""}
             </div>
 
             <div className="field full">

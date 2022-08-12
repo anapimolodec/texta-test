@@ -125,6 +125,7 @@ fieldset legend {
 	align-items: flex-start;
 	width: 100%;
 	margin-bottom: 20px ;
+	position: relative;
 }
 .full {
 	flex-basis: 100%;
@@ -201,4 +202,20 @@ input[type="checkbox"] {
     left: 3px;
     position: absolute;
 
+}
+
+/*EMAIL ERROR*/
+.error-message {
+		position: absolute;
+		font-size: 0.8rem;
+		top: 65px;
+}
+
+.redtext {
+	color: red;
+}
+
+.field input.redborder:focus, .field input.redborder {
+	border: 1px solid red;
+  box-shadow: 0 0 2px red;
 }
