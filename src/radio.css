@@ -1,0 +1,90 @@
+.radio-row {
+	display: flex;
+}
+.radio-choice {
+	display: flex;
+	margin-right: 30px;
+
+}
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+   display: none;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+
+}
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label:after {
+    content: '\2714';
+    color: white;
+    width: 20px;
+    height: 20px;
+    background: #0c75ff;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+[type="radio"]:checked + label:after {
+    opacity: 1;
+
+}
+.radio-choice label {
+display: block;}
+
+.gender-choice {
+    width: 40%;
+}
+.gender-choice > input{ /* HIDE RADIO */
+    visibility: hidden; /* Makes input not-clickable */
+    position: absolute; /* Remove input from document flow */
+}
+.gender-choice > input + div{ /* DIV STYLES */
+    cursor:pointer;
+    border:2px solid transparent;
+}
+.gender-choice div {
+    height: 200px;
+    width:  300px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.female-img {
+    background-image: url('female.png');
+}
+
+.male-img {
+    background-image: url('male.png');
+}
+.gender-choice > input:checked + div{ /* (RADIO CHECKED) DIV STYLES */
+    background-color: #ecf3fe;
+    border: 1px solid #b4d2e3;
+    border-radius: 8px;
+}
+.gender {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 40px;
+}
