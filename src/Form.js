@@ -39,27 +39,30 @@ const Form = () => {
     function onRegister() {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          set(ref(db, "users/" + userCredential.user.uid), {
-            firstName: firstName,
-            email: email,
-            date: dob,
-            message: message,
-            address: address,
-            choice: choice,
-          })
-          set(ref(db, "emails/"), {
+          // set(ref(db, "users/" + userCredential.user.uid), {
+          //   firstName: firstName,
+          //   email: email,
+          //   date: dob,
+          //   message: message,
+          //   address: address,
+          //   choice: choice,
+          //   gender: gender,
+          //   option1: option1,
+          //   option2: option2,
+          // })
+          // set(ref(db, "emails/"), {
             
-            email: email,
+          //   email: email,
             
-          });
+          // });
+          console.log(firstName, email, dob, message, address, choice,  gender, option1, option2);
         })
         .catch(error => console.log(error.message));
       
     }
     onRegister();
   };
-  
-    
+  console.log(gender,option1,option2)
   
   useEffect(() => {
     const checkEmail = () => {
@@ -95,6 +98,7 @@ const Form = () => {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 name="firstname"
+                value={firstName}
               ></input>
             </div>
             <div className="field">
@@ -104,6 +108,7 @@ const Form = () => {
                 required
                 type="password"
                 name="password"
+
               ></input>
             </div>
             <div className="field">
@@ -112,6 +117,7 @@ const Form = () => {
                 type="date" 
                 name="dob"
                 onChange={(e) => setDob(e.target.value)}
+                value={dob}
                 ></input>
             </div>
             <div className="field">
@@ -121,6 +127,7 @@ const Form = () => {
                 required
                 type="email"
                 name="email"
+                value={email}
               ></input>
             </div>
 
@@ -130,6 +137,7 @@ const Form = () => {
                 onChange={(e) => setAddress(e.target.value)}
                 required
                 name="address"
+                value={address}
               ></input>
             </div>
           
@@ -146,7 +154,7 @@ const Form = () => {
               type="text"
               name="message"
               form="form"
-              
+              value={message}
               rows="10" cols="10" maxlength="200"
             ></textarea>
           </div>
@@ -169,14 +177,14 @@ const Form = () => {
           <legend>Checkbox <p className="pagination"> Step {step}/3 </p></legend>
           <div className="radio-row gender">
             <label className="radio-choice gender-choice"> 
-              <input type="radio" id="male"
-               name="gender" value="male" onChange={e => {setGender(e.target.value); console.log(gender);}}></input>
+              <input type="radio" 
+               name="gender" value="male" onClick={() => setGender('male')}></input>
               <div className="male-img"></div>
               
             </label> 
             <label className="radio-choice gender-choice">
-              <input type="radio" id="female"
-               name="gender" value="female" onChange={e => {setGender(e.target.value); console.log(gender);}}>
+              <input type="radio" 
+               name="gender" value="female" onClick={() => setGender('female')}>
                </input>
                <div className="female-img "></div>
                
@@ -184,11 +192,11 @@ const Form = () => {
           </div>
 
           <label class="checkbox-row"> I want to add this option
-            <input type="checkbox" value="option1" onChange={e => setOption1(!option1)}/>
+            <input type="checkbox" value="option1" onClick={() =>  setOption1(option1 => !option1)}/>
             <span class="checkmark"></span>
           </label>
           <label class="checkbox-row">Let me check on this checkbox and choose some cool stuff
-            <input type="checkbox" value="option2" onChange={e => setOption2(!option2)} />
+            <input type="checkbox" value="option2" onClick={() => setOption2(option2 => !option2)} />
             <span class="checkmark"></span>
           </label>
         </fieldset>
