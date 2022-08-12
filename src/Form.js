@@ -63,12 +63,7 @@ const Form = () => {
             option1: option1,
             option2: option2,
           })
-          let s1 = email?.split("@");
-          let emailDotless = s1[0]+s1[1]?.split(".").join("");
-          set(ref(db, "emails/" + emailDotless), {
-            exists: true,
-            
-          });
+
           cleanFields();
           setSubmitted(true);
         })
@@ -81,39 +76,43 @@ const Form = () => {
 
   
   useEffect(() => {
-    const checkEmail = () => {
-        const users = ref(db, 'emails/');
+    
+    const checkEmail2 = () => {
+        const users = ref(db, 'users/');
         onValue(users, (snapshot) => {
           const data = snapshot.val();
-          let s1 = email?.split("@");
-          let emailDotless = s1[0]+s1[1]?.split(".").join("");
-          let exists = Object.keys(data).includes(emailDotless);
-          setUsedEmail(exists);
-          console.log(exists)
+      
+          let arr = Object.keys(data);
+          for (let i=0; i<arr.length; i++) {
+            let existingEmail = data[arr[i]].email;
+            if (existingEmail != email) {
+              setUsedEmail(false);
+              console.log(existingEmail, email)
+            } else {
+              setUsedEmail(true);
+              console.log("HERE!", email, usedEmail)
+              return;
+            }
+          }
+          
         });
       
     
     }
-    checkEmail();
-
-    
+    console.log(usedEmail)
+    checkEmail2();    
   }, [email]);
   
   const passwordCheck = (e) => {
     let size = e.length;
     if (size > 6) {
         setShort(false);
+    } else {
+      setShort(true);
     }
     setPassword(e);
   }
-  
-  
-     
-  
 
-    
-  
-  console.log("USEDEMAIL", usedEmail);
   return (
     <div className="form-wrapper">
       <ol>
