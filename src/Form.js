@@ -20,6 +20,7 @@ const Form = () => {
   const [error, setError] = useState("");
   const [usedEmail, setUsedEmail] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [short, setShort] = useState(true);
 
   const nextStep = (e) => {
     e.preventDefault();
@@ -62,12 +63,14 @@ const Form = () => {
             option1: option1,
             option2: option2,
           })
-          set(ref(db, "emails/"), {
-            
-            email: email,
+          let s1 = email?.split("@");
+          let emailDotless = s1[0]+s1[1]?.split(".").join("");
+          set(ref(db, "emails/" + emailDotless), {
+            exists: true,
             
           });
           cleanFields();
+          setSubmitted(true);
         })
         .catch(error => console.log(error.message));
       
@@ -82,8 +85,11 @@ const Form = () => {
         const users = ref(db, 'emails/');
         onValue(users, (snapshot) => {
           const data = snapshot.val();
-          let exists = Object.values(data).includes(email);
+          let s1 = email?.split("@");
+          let emailDotless = s1[0]+s1[1]?.split(".").join("");
+          let exists = Object.keys(data).includes(emailDotless);
           setUsedEmail(exists);
+          console.log(exists)
         });
       
     
@@ -92,7 +98,18 @@ const Form = () => {
 
     
   }, [email]);
-  console.log("USEDEMAIL", "change", usedEmail);
+  useEffect(() => {
+  
+    let size = password.length();
+    if (size > 6) {
+      setShort(false);
+    }
+     
+    setShort(true);
+
+    
+  }, [password]);
+  console.log("USEDEMAIL", usedEmail);
   return (
     <div className="form-wrapper">
       <ol>
@@ -123,8 +140,10 @@ const Form = () => {
                 required
                 type="password"
                 name="password"
+                className={short ? "redborder" : ""}
 
               ></input>
+              {short ? <p className="error-message redtext"> Password should be more than 6 char </p> : ""}
             </div>
             <div className="field">
               <label for="dob"> Date of Birth </label>
@@ -223,7 +242,7 @@ const Form = () => {
       <div className="buttons-wrapper">
         
         <button onClick={prevStep} style={ step == 1 ? {display: 'none'} : {}} >Back</button>
-        { step == 3 ? <button onClick={submitForm} className="next"> Submit </button>
+        { step == 3 ? <button onClick={submitForm} className="next"> {submitted ? 'Submitted!' : 'Submit'} </button>
         : <button onClick={nextStep} className="next"> Next Step</button> }
         
         
